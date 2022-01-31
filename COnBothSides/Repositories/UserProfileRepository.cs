@@ -110,7 +110,7 @@ namespace COnBothSides.Repositories
                 {
                     cmd.CommandText = $@"
                     SELECT up.Id AS UserProfileId, up.UserName, up.FirstName, up.LastName,
-		                up.Email AS UserProfileEmail, up.CreateDateTime AS UserProfileCreateDateTime, 
+		                up.Email AS UserProfileEmail, up.CreateDateTime AS UserProfileCreateDateTime,
 		                up.UserTypeId, ut.[Name]
 
                            FROM UserProfile up
