@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
+import PostList from "./Post/PostList";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -10,17 +11,17 @@ export default function ApplicationViews({ isLoggedIn }) {
         <main>
             <Switch>
 
-                {/* <Route path="/" exact>
-          {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
-        </Route>
+                <Route path="/" exact>
+                    {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
+                </Route>
 
-        <Route path="/post/create" exact>
+                {/* <Route path="/post/create" exact>
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
-        </Route>
-
-        <Route path="/post/:id" exact>
-          {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
         </Route> */}
+
+                {/* <Route path="/post/:id" exact>
+                    {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+                </Route> */}
 
                 <Route path="/login">
                     <Login />
