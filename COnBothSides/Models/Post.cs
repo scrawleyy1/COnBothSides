@@ -17,6 +17,8 @@ namespace COnBothSides.Models
         public DateTime CreateDateTime { get; set; }
         public UserProfile UserProfile { get; set;}
         public Category Category { get; set; }
+        public int UserProfileId { get; set; }
+        public int CategoryId { get; set; }
        
     }
 }

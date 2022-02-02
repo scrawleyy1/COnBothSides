@@ -25,15 +25,15 @@ namespace COnBothSides.Utils
             return reader.GetString(ordinal);
         }
 
-        public static string GetBool(SqlDataReader reader, string column)
+        public static bool GetBool(SqlDataReader reader, string column)
         {
             var ordinal = reader.GetOrdinal(column);
             if (reader.IsDBNull(ordinal))
             {
-                return null;
+                return false;
             }
 
-            return reader.GetString(ordinal);
+            return reader.GetBoolean(ordinal);
         }
 
         /// <summary>
