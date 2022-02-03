@@ -7,5 +7,8 @@ namespace COnBothSides.Repositories
     {
         List<Post> GetAll();
         Post GetPostById(int id);
+        public void Add(Post post);
+        public void Delete(int id);
+        public void Update(Post post);
     }
 }

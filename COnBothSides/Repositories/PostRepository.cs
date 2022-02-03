@@ -119,6 +119,77 @@ namespace COnBothSides.Repositories
             }
         }
 
+        public void Add(Post post)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO Post
+                            (Title, Description, Url, Complete, CompleteBy,
+                            isFavorite, CreateDateTime, CategoryId, UserProfileId)
+                        OUTPUT INSERTED.ID
+                        VALUES (
+                            @Title, @Description, @Url, @Complete, @CompleteBy,
+                            @isFavorite, @CreateDateTime, @CategoryId, @UserProfileId )";
+                    cmd.Parameters.AddWithValue("@Title", post.Title);
+                    cmd.Parameters.AddWithValue("@Description", post.Description);
+                    cmd.Parameters.AddWithValue("@Url", post.Url);
+                    cmd.Parameters.AddWithValue("@Complete", post.Complete);
+                    cmd.Parameters.AddWithValue("@CompleteBy", post.CompleteBy);
+                    cmd.Parameters.AddWithValue("@isFavorite", post.isFavorite);
+                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
+                    cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
+                    cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
+
+                    post.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
+        public void Update(Post post)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+
+                    cmd.CommandText = @"UPDATE Post
+                                        SET Title = @Title,
+                                        Description = @Description,
+                                        Url = @Url,
+                                        CompleteBy = @CompleteBy,
+                                        WHERE Id = @Id";
+
+                    cmd.Parameters.AddWithValue("@Title", post.Title);
+                    cmd.Parameters.AddWithValue("@Description", post.Description);
+                    cmd.Parameters.AddWithValue("@Url", post.Url);
+                    cmd.Parameters.AddWithValue("@CompleteBy", post.CompleteBy);
+                    cmd.Parameters.AddWithValue("@Id", post.Id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"DELETE FROM POST WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         private Post NewPostFromReader(SqlDataReader reader)
         {
             Post post = new Post()

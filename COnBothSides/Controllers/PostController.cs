@@ -32,5 +32,26 @@ namespace COnBothSides.Controllers
         {
             return Ok(_postRepository.GetPostById(id));
         }
+
+        [HttpPost]
+        public IActionResult Add(Post post)
+        {
+            _postRepository.Add(post);
+            return NoContent();
+        }
+
+        [HttpPut]
+        public IActionResult Update(Post post)
+        {
+            _postRepository.Update(post);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _postRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
