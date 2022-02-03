@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Login";
 import Register from "./Register";
 import PostList from "./Post/PostList";
+import PostDetails from "./Post/PostDetails";
 
 
 export default function ApplicationViews({ isLoggedIn }) {
@@ -19,9 +20,9 @@ export default function ApplicationViews({ isLoggedIn }) {
           {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
         </Route> */}
 
-                {/* <Route path="/post/:id" exact>
+                <Route path="/post/:id" exact>
                     {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
-                </Route> */}
+                </Route>
 
                 <Route path="/login">
                     <Login />

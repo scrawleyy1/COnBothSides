@@ -161,7 +161,7 @@ namespace COnBothSides.Repositories
                                         SET Title = @Title,
                                         Description = @Description,
                                         Url = @Url,
-                                        CompleteBy = @CompleteBy,
+                                        CompleteBy = @CompleteBy
                                         WHERE Id = @Id";
 
                     cmd.Parameters.AddWithValue("@Title", post.Title);

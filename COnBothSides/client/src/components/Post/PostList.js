@@ -8,14 +8,10 @@ export const PostList = () => {
 
     const history = useHistory();
 
-    const getPosts = () => {
-        return getAllPosts().then(posts => {
-            setPosts(posts)
-        });
-    };
-
     useEffect(() => {
-        getPosts();
+        getAllPosts().then(posts => {
+            setPosts(posts)
+        })
     }, []);
 
     return (

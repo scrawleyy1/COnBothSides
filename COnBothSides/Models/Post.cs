@@ -19,6 +19,7 @@ namespace COnBothSides.Models
         public Category Category { get; set; }
         public int UserProfileId { get; set; }
         public int CategoryId { get; set; }
+
        
     }
 }
