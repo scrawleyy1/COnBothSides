@@ -15,10 +15,12 @@ namespace COnBothSides.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostRepository _postRepository;
+        private readonly IUserProfileRepository _userProfileRepository;
 
-        public PostController(IPostRepository postRepository)
+        public PostController(IPostRepository postRepository, IUserProfileRepository userProfileRepository)
         {
             _postRepository = postRepository;
+            _userProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -36,6 +38,8 @@ namespace COnBothSides.Controllers
         [HttpPost]
         public IActionResult Add(Post post)
         {
+            var currentUserProfile = GetCurrentUserProfile();
+            post.UserProfileId = currentUserProfile.Id;
             _postRepository.Add(post);
             return NoContent();
         }
@@ -52,6 +56,12 @@ namespace COnBothSides.Controllers
         {
             _postRepository.Delete(id);
             return NoContent();
+        }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseId(firebaseId);
         }
     }
 }

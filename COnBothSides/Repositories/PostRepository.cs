@@ -133,18 +133,17 @@ namespace COnBothSides.Repositories
                         OUTPUT INSERTED.ID
                         VALUES (
                             @Title, @Description, @Url, @Complete, @CompleteBy,
-                            @isFavorite, @CreateDateTime, @CategoryId, @UserProfileId )";
+                            @isFavorite, GETDATE(), @CategoryId, @UserProfileId )";
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Description", post.Description);
                     cmd.Parameters.AddWithValue("@Url", post.Url);
                     cmd.Parameters.AddWithValue("@Complete", post.Complete);
                     cmd.Parameters.AddWithValue("@CompleteBy", post.CompleteBy);
                     cmd.Parameters.AddWithValue("@isFavorite", post.isFavorite);
-                    cmd.Parameters.AddWithValue("@CreateDateTime", post.CreateDateTime);
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
 
-                    post.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

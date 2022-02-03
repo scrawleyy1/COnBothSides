@@ -38,6 +38,32 @@ export const getPostById = (id) => {
     })
 }
 
+export const deletePost = (id) => {
+    return fetch(`${baseUrl}/${id}`, {
+        method: "DELETE"
+    }).then(result => result.json())
+}
+
+export const addPost = (newPost) => {
+    return fetch(`${baseUrl}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newPost)
+    }).then(data => data.json());
+}
+
+export const update = (editedPost) => {
+    return fetch(`${baseUrl}/${editedPost.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editedPost)
+    }).then(data => data.json());
+}
+
 export const postComplete = (post) => {
     post.status === true ? post.status = false : post.status = true
     return fetch(`${baseUrl}/${post.id}`, {

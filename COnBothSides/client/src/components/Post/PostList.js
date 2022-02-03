@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
-import { getAllPosts, postComplete } from '../../modules/postManager';
+import { getAllPosts } from '../../modules/postManager';
 import { useHistory } from "react-router-dom";
 
 export const PostList = () => {

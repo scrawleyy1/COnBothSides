@@ -15,8 +15,6 @@ export const PostCard = ({ post }) => {
         getAllPosts()
     }
 
-    const currentUser = parseInt(sessionStorage.getItem("COnBothSides"))
-
     return (
         <Card>
             <CardBody>
@@ -27,7 +25,7 @@ export const PostCard = ({ post }) => {
             <CardBody>
                 <p>Description: {post.description}</p>
                 <p>Category: {post.category.name}</p>
-                <p>Complete By: {post.completeBy}</p>
+                <p>Complete By: {post.createDateTime}</p>
                 <div><label htmlFor="complete">complete?
                     <input onChange={handleCheckboxComplete} type="checkbox" name="complete" id="complete"></input>
                 </label></div>
