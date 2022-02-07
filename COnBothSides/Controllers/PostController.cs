@@ -10,6 +10,7 @@ using COnBothSides.Models;
 
 namespace COnBothSides.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -38,8 +39,8 @@ namespace COnBothSides.Controllers
         [HttpPost]
         public IActionResult Add(Post post)
         {
-           var currentUserProfile = GetCurrentUserProfile();
-            post.UserProfileId = currentUserProfile.Id;
+          var currentUserProfile = GetCurrentUserProfile();
+            post.UserProfileId = 1;
             _postRepository.Add(post);
             return NoContent();
         }

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { getAllCategories } from "../../modules/categoryManager";
 import { addPost } from "../../modules/postManager";
 
 export const PostForm = () => {
@@ -10,8 +11,17 @@ export const PostForm = () => {
         description: "",
         url: "",
         completeBy: "",
+        categoryId: 0,
         complete: false
     });
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        getAllCategories().then(res => {
+            setCategories(res)
+        })
+    }, [])
 
     const history = useHistory();
     //makes a copy of object
@@ -61,6 +71,15 @@ export const PostForm = () => {
                 <div>
                     <label htmlFor="completeBy">Complete By:</label>
                     <input type="date" id="completeBy" onChange={handleControlledInputChange} required autoFocus placeholder="Complete By" value={post.createDateTime} />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label htmlFor="category">Category:</label>
+                    <select id="categoryId" onChange={handleControlledInputChange} required autoFocus placeholder="category" value={post.categoryId} >
+                        <option value="null">Select Category</option>
+                        {categories.map(c => (<option key={c.id} value={c.id}>{c.name}</option>))}
+                    </select>
                 </div>
             </fieldset>
             <fieldset>
