@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
-import { postComplete } from "../../modules/postManager";
-import { useHistory } from "react-router-dom";
-import { getAllPosts } from "../../modules/postManager";
+import { postComplete, getAllPosts } from "../../modules/postManager";
 
 export const PostCard = ({ post }) => {
 
