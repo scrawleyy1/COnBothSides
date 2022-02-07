@@ -6,7 +6,7 @@ export const getAllCategories = () => {
 
     return getToken().then(token => {
         return fetch(baseUrl, {
-            method: "Get",
+            method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -33,7 +33,7 @@ export const addCategory = (newCategory) => {
             if (res.ok) {
                 return res.json()
             } else {
-                throw new Error("An error occured when creating a post")
+                throw new Error("An error occured when creating a category")
             }
         })
     })
@@ -52,8 +52,8 @@ export const deleteCategory = (category) => {
             if (res.ok) {
                 return
             } else {
-                throw new Error("An unknown error occurred while trying to get categorys.");
+                throw new Error("An unknown error occurred while trying to delete categorys.");
             }
-        });
-    });
-};
+        })
+    })
+}

@@ -27,7 +27,7 @@ export const CategoryList = () => {
         <>
             <section>
                 <button type="button" onClick={() => history.push("/category/create")}>
-                    Create Category
+                    Add Category
                 </button>
                 <h1>Categories</h1>
                 <div>{categories.map(category => <CategoryCard key={category.id} category={category} handleDeleteCategory={handleDeleteCategory} />)}</div>
