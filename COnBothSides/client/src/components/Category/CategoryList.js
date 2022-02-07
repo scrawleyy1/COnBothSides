@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { CategoryCard } from "./CategoryCard";
 import { useHistory } from "react-router-dom";
-import { getAllCategories } from "../../modules/categoryManager";
+import { deleteCategory, getAllCategories } from "../../modules/categoryManager";
 
 export const CategoryList = () => {
     const [categories, setCategories] = useState([]);
+
     const history = useHistory();
 
     const getCategories = () => {
         getAllCategories().then(categories => setCategories(categories));
 
     }
+
+    const handleDeleteCategory = id => {
+        deleteCategory(id)
+            .then(() => getAllCategories().then(setCategories));
+    }
+
     useEffect(() => {
         getCategories();
     }, []);
@@ -23,7 +30,7 @@ export const CategoryList = () => {
                     Create Category
                 </button>
                 <h1>Categories</h1>
-                <div>{categories.map(category => <CategoryCard key={category.id} category={category} />)}</div>
+                <div>{categories.map(category => <CategoryCard key={category.id} category={category} handleDeleteCategory={handleDeleteCategory} />)}</div>
             </section>
         </>
     )
