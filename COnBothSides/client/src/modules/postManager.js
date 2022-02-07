@@ -39,19 +39,28 @@ export const getPostById = (id) => {
 }
 
 export const deletePost = (id) => {
-    return fetch(`${baseUrl}/${id}`, {
-        method: "DELETE"
-    }).then(result => result.json())
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+        })
+    })
 }
 
 export const addPost = (newPost) => {
-    return fetch(`${baseUrl}`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newPost)
-    }).then(data => data.json());
+    return getToken().then(token => {
+        return fetch(`${baseUrl}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(newPost)
+        });
+    })
 }
 
 export const update = (editedPost) => {
