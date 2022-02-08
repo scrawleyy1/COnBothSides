@@ -29,12 +29,6 @@ export const addCategory = (newCategory) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newCategory)
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                throw new Error("An error occured when creating a category")
-            }
         })
     })
 }

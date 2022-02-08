@@ -29,12 +29,6 @@ export const addSocialPlatform = (newSocialPlatform) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newSocialPlatform)
-        }).then(res => {
-            if (res.ok) {
-                return res.json()
-            } else {
-                throw new Error("An error occured when creating a social platform")
-            }
         })
     })
 }
