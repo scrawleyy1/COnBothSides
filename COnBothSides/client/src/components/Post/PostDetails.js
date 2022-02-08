@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
 import { deletePost, getAllPosts, getPostById } from "../../modules/postManager";
 import { useParams, useHistory } from "react-router-dom";
+import { getSocialPlatformsById } from "../../modules/socialPlatformManager";
 
 
 export const PostDetails = () => {
 
     const history = useHistory();
     const [post, setPost] = useState([]);
+    const [socialPlatform, setSocialPlatform] = useState([])
     const { id } = useParams();
 
     const handleDeletePost = (id) => {
@@ -19,6 +21,11 @@ export const PostDetails = () => {
     useEffect(() => {
         getPostById(id).then(setPost);
     }, []);
+
+    useEffect(() => {
+        getSocialPlatformsById(id).then(setSocialPlatform);
+    }, []);
+
 
     if (!post.userProfile) {
         return null;
@@ -34,8 +41,8 @@ export const PostDetails = () => {
                     <p>Description: {post.description}</p>
                     <p>Create By: {post.createDateTime}</p>
                     <p>Link : {post.url}</p>
-                    <p>User: {post.userProfile.userName}</p>
                     <p>Category: {post.category.name}</p>
+                    <p>Post to: {socialPlatform.name}</p>
                 </ListGroupItem>
             </ListGroup>
             <div>

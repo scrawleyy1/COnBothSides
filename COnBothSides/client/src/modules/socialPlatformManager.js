@@ -20,6 +20,35 @@ export const getAllSocialPlatforms = () => {
     })
 }
 
+// export const getSocialPlatformsById = (id) => {
+//     return getToken().then(token => {
+//         return fetch(`${baseUrl}/${id}`, {
+//             method: "GET",
+//             headers: {
+//                 Authorization: `Bearer ${token}`
+//             }
+//         }).then(res => {
+//             if (res.ok) {
+//                 return res.json()
+//             } else {
+//                 throw new Error("An error occurred while retrieving social platforms")
+//             }
+//         })
+//     })
+// }
+
+export const getSocialPlatformsById = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
+
 export const addSocialPlatform = (newSocialPlatform) => {
     return getToken().then(token => {
         return fetch(baseUrl, {

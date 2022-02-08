@@ -40,6 +40,37 @@ namespace COnBothSides.Repositories
             }
         }
 
+        public SocialPlatform GetSocialPlatformById(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT Id,
+                                               Name
+                                          FROM SocialPlatform 
+                                         WHERE id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SocialPlatform socialPlatform = null;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (socialPlatform == null)
+                        {
+                            socialPlatform = new SocialPlatform()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name"))
+                            };
+                        }
+                    }
+                    reader.Close();
+                    return socialPlatform;
+                }
+            }
+        }
+
         public void Add(SocialPlatform socialPlatform)
         {
             using (SqlConnection conn = Connection)

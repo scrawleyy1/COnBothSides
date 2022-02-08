@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { getAllCategories } from "../../modules/categoryManager";
+import { getAllSocialPlatforms } from "../../modules/socialPlatformManager";
 import { addPost } from "../../modules/postManager";
 
 export const PostForm = () => {
@@ -12,6 +13,7 @@ export const PostForm = () => {
         url: "",
         completeBy: "",
         categoryId: 0,
+        socialPlatformId: 0,
         complete: false
     });
 
@@ -20,6 +22,14 @@ export const PostForm = () => {
     useEffect(() => {
         getAllCategories().then(res => {
             setCategories(res)
+        })
+    }, [])
+
+    const [socialPlatform, setSocialPlatform] = useState([])
+
+    useEffect(() => {
+        getAllSocialPlatforms().then(res => {
+            setSocialPlatform(res)
         })
     }, [])
 
@@ -76,9 +86,18 @@ export const PostForm = () => {
             <fieldset>
                 <div>
                     <label htmlFor="category">Category:</label>
-                    <select id="categoryId" onChange={handleControlledInputChange} required autoFocus placeholder="category" value={post.categoryId} >
+                    <select id="categoryId" onChange={handleControlledInputChange} required autoFocus placeholder="Category" value={post.categoryId} >
                         <option value="null">Select Category</option>
                         {categories.map(c => (<option key={c.id} value={c.id}>{c.name}</option>))}
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div>
+                    <label htmlFor="socialPlatform">Social Media Platform:</label>
+                    <select id="socialPlatformId" onChange={handleControlledInputChange} required autoFocus placeholder="Social Media Platform" value={socialPlatform.name} >
+                        <option value="null">Select Social Media Platform</option>
+                        {socialPlatform.map(sp => (<option key={sp.id} value={sp.id}>{sp.name}</option>))}
                     </select>
                 </div>
             </fieldset>

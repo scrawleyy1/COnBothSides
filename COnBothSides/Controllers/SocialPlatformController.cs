@@ -38,5 +38,12 @@ namespace COnBothSides.Controllers
             _socialPlatformRepository.Delete(id);
             return NoContent();
         }
+
+        [HttpGet("{id}")]
+        public ActionResult Index(int id)
+        {
+            var socialPlatform = _socialPlatformRepository.GetSocialPlatformById(id);
+            return Ok(socialPlatform);
+        }
     }
 }

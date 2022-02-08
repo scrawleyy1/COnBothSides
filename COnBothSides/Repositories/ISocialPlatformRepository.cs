@@ -8,5 +8,6 @@ namespace COnBothSides.Repositories
         void Add(SocialPlatform socialPlatform);
         void Delete(int id);
         List<SocialPlatform> GetAll();
+        SocialPlatform GetSocialPlatformById(int id);
     }
 }

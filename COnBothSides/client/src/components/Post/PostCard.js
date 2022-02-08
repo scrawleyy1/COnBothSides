@@ -21,7 +21,6 @@ export const PostCard = ({ post }) => {
                 </Link>
             </CardBody>
             <CardBody>
-                <p>Description: {post.description}</p>
                 <p>Category: {post.category.name}</p>
                 <p>Complete By: {post.createDateTime}</p>
                 <div><label htmlFor="complete">complete?
