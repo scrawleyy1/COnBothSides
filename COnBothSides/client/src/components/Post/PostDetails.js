@@ -1,36 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
-import { deletePost, getAllPosts, getPostById } from "../../modules/postManager";
+import { deletePost, getPostById } from "../../modules/postManager";
 import { useParams, useHistory } from "react-router-dom";
-import { getSocialPlatformsById } from "../../modules/socialPlatformManager";
+// import { getSocialPlatformsById } from "../../modules/socialPlatformManager";
 
 
 export const PostDetails = () => {
 
     const history = useHistory();
     const [post, setPost] = useState([]);
-    const [socialPlatform, setSocialPlatform] = useState([])
+    // const [socialPlatform, setSocialPlatform] = useState([])
     const { id } = useParams();
 
-    const handleDeletePost = (id) => {
+    const handleDeletePost = () => {
         deletePost(id)
-            .then(() => getAllPosts().then(setPost));
+            .then(() => history.push("/"));
     };
-
 
     useEffect(() => {
         getPostById(id).then(setPost);
     }, []);
 
-    useEffect(() => {
-        getSocialPlatformsById(id).then(setSocialPlatform);
-    }, []);
-
+    // useEffect(() => {
+    //     getSocialPlatformsById(id).then(setSocialPlatform);
+    // }, []);
 
     if (!post.userProfile) {
         return null;
     }
-
     return (
         <>
             <ListGroup>
@@ -42,7 +39,7 @@ export const PostDetails = () => {
                     <p>Create By: {post.createDateTime}</p>
                     <p>Link : {post.url}</p>
                     <p>Category: {post.category.name}</p>
-                    <p>Post to: {socialPlatform.name}</p>
+                    <div>Post to: {post.platforms.map(p => <p>{p.name}</p>)}</div>
                 </ListGroupItem>
             </ListGroup>
             <div>

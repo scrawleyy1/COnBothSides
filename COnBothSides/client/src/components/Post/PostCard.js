@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import { postComplete, getAllPosts } from "../../modules/postManager";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 export const PostCard = ({ post }) => {
 
@@ -9,9 +10,9 @@ export const PostCard = ({ post }) => {
         postComplete(post).then(reload)
     }
 
-    const reload = () => {
-        getAllPosts()
-    }
+    const history = useHistory;
+
+    const reload = () => history.pushState("/")
 
     return (
         <Card>
@@ -22,7 +23,7 @@ export const PostCard = ({ post }) => {
             </CardBody>
             <CardBody>
                 <p>Category: {post.category.name}</p>
-                <p>Complete By: {post.completeBy}</p>
+                <p>Complete By: {post.createDateTime}</p>
                 <div><label htmlFor="complete">complete?
                     <input onChange={handleCheckboxComplete} type="checkbox" name="complete" id="complete"></input>
                 </label></div>

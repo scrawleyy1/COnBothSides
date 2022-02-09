@@ -27,7 +27,7 @@ export const SocialPlatformList = () => {
         <>
             <section>
                 <button type="button" onClick={() => history.push("/socialPlatform/create")}>
-                    Add new Social Media Platform
+                    Add Social Media Platform
                 </button>
                 <h1>Social Meadia Platforms</h1>
                 <div>{socialPlatforms.map(socialPlatform => <SocialPlatformCard key={socialPlatform.id} socialPlatform={socialPlatform} handleDeleteSocialPlatform={handleDeleteSocialPlatform} />)}</div>

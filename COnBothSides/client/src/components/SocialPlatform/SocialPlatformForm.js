@@ -26,7 +26,7 @@ export const SocialPlatformForm = () => {
 
     return (
         <>
-            <h3>Add New Social Platform</h3>
+            <h3>Add Social Platform</h3>
             <div>
                 <input id="name" type="text" onChange={handleControlledInputChange} required autoFocus placeholder="Add New Social Platform" value={socialPlatform.name} />
                 <button onClick={handleClickSaveSocialPlatform}>Save Social Platform</button>
