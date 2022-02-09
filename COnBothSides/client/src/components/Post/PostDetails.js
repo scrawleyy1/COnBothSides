@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem, Button } from "reactstrap";
-import { deletePost, getAllPosts, getPostById } from "../../modules/postManager";
+import { deletePost, getPostById } from "../../modules/postManager";
 import { useParams, useHistory } from "react-router-dom";
-import { getSocialPlatformsById } from "../../modules/socialPlatformManager";
+// import { getSocialPlatformsById } from "../../modules/socialPlatformManager";
 
 
 export const PostDetails = () => {
@@ -17,7 +17,6 @@ export const PostDetails = () => {
             .then(() => history.push("/"));
     };
 
-
     useEffect(() => {
         getPostById(id).then(setPost);
     }, []);
@@ -26,11 +25,9 @@ export const PostDetails = () => {
     //     getSocialPlatformsById(id).then(setSocialPlatform);
     // }, []);
 
-
     if (!post.userProfile) {
         return null;
     }
-
     return (
         <>
             <ListGroup>

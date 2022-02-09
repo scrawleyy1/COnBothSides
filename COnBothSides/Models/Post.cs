@@ -15,7 +15,7 @@ namespace COnBothSides.Models
         public bool isFavorite { get; set; }
         public DateTime CompleteBy { get; set; }
         public DateTime CreateDateTime { get; set; }
-        public UserProfile UserProfile { get; set;}
+        public UserProfile UserProfile { get; set; }
         public Category Category { get; set; }
         public int UserProfileId { get; set; }
         public int CategoryId { get; set; }

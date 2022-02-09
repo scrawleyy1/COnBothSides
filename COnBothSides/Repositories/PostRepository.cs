@@ -124,6 +124,7 @@ namespace COnBothSides.Repositories
                             post.Platforms.Add(new SocialPlatform()
                             {
                                 Name = DbUtils.GetString(reader, "SocialPlatformName")
+
                             });
                         }
                         return post;
