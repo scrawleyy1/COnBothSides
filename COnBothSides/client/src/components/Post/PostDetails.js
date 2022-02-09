@@ -36,7 +36,7 @@ export const PostDetails = () => {
                 </ListGroupItem>
                 <ListGroupItem>
                     <p>Description: {post.description}</p>
-                    <p>Create By: {post.createDateTime}</p>
+                    <p>Create By: {post.completeBy}</p>
                     <p>Link : {post.url}</p>
                     <p>Category: {post.category.name}</p>
                     <div>Post to: {post.platforms.map(p => <p>{p.name}</p>)}</div>
