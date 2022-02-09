@@ -8,5 +8,7 @@ namespace COnBothSides.Repositories
         void Add(Category category);
         List<Category> GetAll();
         void Delete(int id);
+        void Update(Category category);
+        Category GetCategoryById(int id);
     }
 }

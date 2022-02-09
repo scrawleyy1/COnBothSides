@@ -40,5 +40,23 @@ namespace COnBothSides.Controllers
             _categoryRepository.Delete(id);
             return NoContent();
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Category category)
+        {
+            if (id != category.Id)
+            {
+                return BadRequest();
+            }
+
+            _categoryRepository.Update(category);
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetCategoryById(int id)
+        {
+            return Ok(_categoryRepository.GetCategoryById(id));
+        }
     }
 }

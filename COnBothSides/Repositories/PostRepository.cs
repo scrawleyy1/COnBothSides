@@ -40,7 +40,7 @@ namespace COnBothSides.Repositories
                         ON up.UserTypeId = ut.Id
                         WHERE p.CreateDateTime < GETDATE()
                         AND p.Complete = 'false'
-                        ORDER BY CreateDateTime desc";
+                        ORDER BY CompleteBy asc";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -54,7 +54,7 @@ namespace COnBothSides.Repositories
                                 Description = DbUtils.GetString(reader, "Description"),
                                 Url = DbUtils.GetString(reader, "Url"),
                                 Complete = DbUtils.GetBool(reader, "Complete"),
-                                CompleteBy = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                                CompleteBy = DbUtils.GetDateTime(reader, "CompleteBy"),
                                 isFavorite = DbUtils.GetBool(reader, "isFavorite"),
                                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                                 Category = new Category()
@@ -121,7 +121,7 @@ namespace COnBothSides.Repositories
                         LEFT JOIN UserType ut
                         ON up.UserTypeId = ut.Id
                         WHERE p.Id = {id}
-                        ORDER BY CreateDateTime desc";
+                        ORDER BY CompleteBy asc";
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -215,7 +215,7 @@ namespace COnBothSides.Repositories
                 Description = DbUtils.GetString(reader, "Description"),
                 Url = DbUtils.GetString(reader, "Url"),
                 Complete = DbUtils.GetBool(reader, "Complete"),
-                CompleteBy = DbUtils.GetDateTime(reader, "CreateDateTime"),
+                CompleteBy = DbUtils.GetDateTime(reader, "CompleteBy"),
                 isFavorite = DbUtils.GetBool(reader, "isFavorite"),
                 CreateDateTime = DbUtils.GetDateTime(reader, "CreateDateTime"),
                 Category = new Category()

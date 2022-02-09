@@ -39,11 +39,22 @@ namespace COnBothSides.Controllers
             return NoContent();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult Index(int id)
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, SocialPlatform socialPlatform)
         {
-            var socialPlatform = _socialPlatformRepository.GetSocialPlatformById(id);
-            return Ok(socialPlatform);
+            if (id != socialPlatform.Id)
+            {
+                return BadRequest();
+            }
+
+            _socialPlatformRepository.Update(socialPlatform);
+            return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSocialPlatformById(int id)
+        {
+            return Ok(_socialPlatformRepository.GetSocialPlatformById(id));
         }
     }
 }

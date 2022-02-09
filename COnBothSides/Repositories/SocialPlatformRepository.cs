@@ -86,6 +86,24 @@ namespace COnBothSides.Repositories
             }
         }
 
+        public void Update(SocialPlatform socialPlatform)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE SocialPlatform
+                                        SET Name = @name
+                                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@name", socialPlatform.Name);
+                    cmd.Parameters.AddWithValue("@id", socialPlatform.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public void Delete(int id)
         {
             using (var conn = Connection)
@@ -100,5 +118,7 @@ namespace COnBothSides.Repositories
                 }
             }
         }
+
+
     }
 }

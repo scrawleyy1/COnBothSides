@@ -22,7 +22,7 @@ export const PostCard = ({ post }) => {
             </CardBody>
             <CardBody>
                 <p>Category: {post.category.name}</p>
-                <p>Complete By: {post.createDateTime}</p>
+                <p>Complete By: {post.completeBy}</p>
                 <div><label htmlFor="complete">complete?
                     <input onChange={handleCheckboxComplete} type="checkbox" name="complete" id="complete"></input>
                 </label></div>

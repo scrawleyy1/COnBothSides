@@ -14,6 +14,7 @@ export const CategoryCard = ({ category }) => {
         <Card>
             <CardBody>
                 <p>{category.name}</p>
+                <button type="button" onClick={() => history.push(`/Categories/${category.id}/edit`)}>Edit</button>
                 <button type="button" onClick={() => handleDeleteCategory(category.id)}>Delete</button>
             </CardBody>
         </Card>

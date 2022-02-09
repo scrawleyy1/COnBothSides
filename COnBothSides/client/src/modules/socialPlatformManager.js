@@ -80,3 +80,16 @@ export const deleteSocialPlatform = (socialPlatform) => {
         })
     })
 }
+
+export const updateSocialPlatform = (socialPlatform) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${socialPlatform.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(socialPlatform),
+        }).then(getAllSocialPlatforms());
+    })
+}
