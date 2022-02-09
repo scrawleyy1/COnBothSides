@@ -9,12 +9,12 @@ export const PostDetails = () => {
 
     const history = useHistory();
     const [post, setPost] = useState([]);
-    const [socialPlatform, setSocialPlatform] = useState([])
+    // const [socialPlatform, setSocialPlatform] = useState([])
     const { id } = useParams();
 
-    const handleDeletePost = (id) => {
+    const handleDeletePost = () => {
         deletePost(id)
-            .then(() => getAllPosts().then(setPost));
+            .then(() => history.push("/"));
     };
 
 
@@ -22,9 +22,9 @@ export const PostDetails = () => {
         getPostById(id).then(setPost);
     }, []);
 
-    useEffect(() => {
-        getSocialPlatformsById(id).then(setSocialPlatform);
-    }, []);
+    // useEffect(() => {
+    //     getSocialPlatformsById(id).then(setSocialPlatform);
+    // }, []);
 
 
     if (!post.userProfile) {
@@ -39,10 +39,10 @@ export const PostDetails = () => {
                 </ListGroupItem>
                 <ListGroupItem>
                     <p>Description: {post.description}</p>
-                    <p>Create By: {post.createDateTime}</p>
+                    <p>Create By: {post.completeBy}</p>
                     <p>Link : {post.url}</p>
                     <p>Category: {post.category.name}</p>
-                    <p>Post to: {socialPlatform.name}</p>
+                    <div>Post to: {post.platforms.map(p => <p>{p.name}</p>)}</div>
                 </ListGroupItem>
             </ListGroup>
             <div>

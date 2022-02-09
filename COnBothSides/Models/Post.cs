@@ -21,7 +21,7 @@ namespace COnBothSides.Models
         public int CategoryId { get; set; }
         public PlatformPost PlatformPost { get; set; }
         public SocialPlatform SocialPlatform { get; set; }
+        public List<SocialPlatform> Platforms { get; set; }
 
-       
     }
 }

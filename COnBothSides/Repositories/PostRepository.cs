@@ -24,16 +24,12 @@ namespace COnBothSides.Repositories
                     SELECT p.Id, p.Title, p.Description, p.Url,
                     p.UserProfileId, p.Complete, p.CompleteBy,
                     p.CategoryId, p.isFavorite, p.CreateDateTime,
-                    c.Name as CategoryName, sp.[Name] AS SocialPlatformName,
+                    c.Name as CategoryName,
                     up.Id as UserId, up.Email, up.FirstName, up.LastName,
                     up.UserName, up.CreateDateTime AS UserCreateDateTime, up.UserTypeId, ut.[Name]
                         FROM Post p
                         LEFT JOIN Category c
                         ON p.CategoryId = c.Id
-                        LEFT JOIN PlatformPost pp
-                        ON pp.PostId = p.Id
-                        LEFT JOIN SocialPlatform sp
-                        ON sp.Id = pp.SocialPlatformId
                         LEFT JOIN UserProfile up
                         ON p.UserProfileId = up.Id
                         LEFT JOIN UserType ut
@@ -61,15 +57,6 @@ namespace COnBothSides.Repositories
                                 {
                                     Id = DbUtils.GetInt(reader, "Id"),
                                     Name = DbUtils.GetString(reader, "CategoryName"),
-                                },
-                                PlatformPost = new PlatformPost()
-                                {
-                                    Id = DbUtils.GetInt(reader, "Id"),
-                                },
-                                SocialPlatform = new SocialPlatform()
-                                {
-                                    Id = DbUtils.GetInt(reader, "Id"),
-                                    Name = DbUtils.GetString(reader, "SocialPlatformName"),
                                 },
                                 UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                                 UserProfile = new UserProfile()
@@ -120,15 +107,24 @@ namespace COnBothSides.Repositories
                         ON p.UserProfileId = up.Id
                         LEFT JOIN UserType ut
                         ON up.UserTypeId = ut.Id
-                        WHERE p.Id = {id}
+                        WHERE p.Id = @id
                         ORDER BY CompleteBy asc";
+
+                    cmd.Parameters.AddWithValue(@"id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        var post = new Post();
-                        if (reader.Read())
+                        Post post = null;
+                        while (reader.Read())
                         {
-                            post = NewPostFromReader(reader);
+                            if (post == null)
+                            {
+                                post = NewPostFromReader(reader);
+                            }
+                            post.Platforms.Add(new SocialPlatform()
+                            {
+                                Name = DbUtils.GetString(reader, "SocialPlatformName")
+                            });
                         }
                         return post;
                     }
@@ -223,15 +219,7 @@ namespace COnBothSides.Repositories
                     Id = DbUtils.GetInt(reader, "Id"),
                     Name = DbUtils.GetString(reader, "CategoryName"),
                 },
-                PlatformPost = new PlatformPost()
-                {
-                    Id = DbUtils.GetInt(reader, "Id"),
-                },
-                SocialPlatform = new SocialPlatform()
-                {
-                    Id = DbUtils.GetInt(reader, "Id"),
-                    Name = DbUtils.GetString(reader, "SocialPlatformName"),
-                },
+                Platforms = new List<SocialPlatform>(),
                 UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
                 UserProfile = new UserProfile()
                 {
