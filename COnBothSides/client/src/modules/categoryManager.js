@@ -20,6 +20,18 @@ export const getAllCategories = () => {
     })
 }
 
+export const getCategoryById = (id) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(res => res.json())
+    })
+}
+
 export const addCategory = (newCategory) => {
     return getToken().then(token => {
         return fetch(baseUrl, {
@@ -49,5 +61,18 @@ export const deleteCategory = (category) => {
                 throw new Error("An unknown error occurred while trying to delete categorys.");
             }
         })
+    })
+}
+
+export const updateCategory = (category) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${category.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(category),
+        }).then(getAllCategories());
     })
 }

@@ -14,6 +14,7 @@ export const SocialPlatformCard = ({ socialPlatform }) => {
         <Card>
             <CardBody>
                 <p>{socialPlatform.name}</p>
+                <button type="button" onClick={() => history.push(`/socialPlatform/${socialPlatform.id}/edit`)}>Edit</button>
                 <button type="button" onClick={() => handleDeleteSocialPlatform(socialPlatform.id)}>Delete</button>
             </CardBody>
         </Card>

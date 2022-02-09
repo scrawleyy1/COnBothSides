@@ -45,9 +45,13 @@ namespace COnBothSides.Controllers
             return NoContent();
         }
 
-        [HttpPut]
-        public IActionResult Update(Post post)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Post post)
         {
+            if (id != post.Id)
+            {
+                return BadRequest();
+            }
             _postRepository.Update(post);
             return NoContent();
         }

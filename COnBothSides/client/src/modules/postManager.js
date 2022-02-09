@@ -63,14 +63,17 @@ export const addPost = (newPost) => {
     })
 }
 
-export const update = (editedPost) => {
-    return fetch(`${baseUrl}/${editedPost.id}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(editedPost)
-    }).then(data => data.json());
+export const updatePost = (post) => {
+    return getToken().then((token) => {
+        return fetch(`${baseUrl}/${post.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(post),
+        }).then(getAllPosts());
+    })
 }
 
 export const postComplete = (post) => {

@@ -11,6 +11,9 @@ import DeleteCategory from "./Category/DeleteCategory";
 import SocialPlatformList from "./SocialPlatform/SocialPlatformList";
 import SocialPlatformForm from "./SocialPlatform/SocialPlatformForm";
 import DeleteSocialPlatform from "./SocialPlatform/DeleteSocialPlatform";
+import PostUpdateForm from "./Post/UpdatePost";
+import SocialPlatformUpdateForm from "./SocialPlatform/UpdateSocialPlatform";
+import CategoryUpdateForm from "./Category/UpdateCategory";
 
 
 
@@ -32,12 +35,20 @@ export default function ApplicationViews({ isLoggedIn }) {
                     {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
                 </Route>
 
+                <Route path="/post/:id/edit" exact>
+                    {isLoggedIn ? <PostUpdateForm /> : <Redirect to="/login" />}
+                </Route>
+
                 <Route path="/Categories" exact>
                     {isLoggedIn ? <CategoryList /> : <Redirect to="/login" />}
                 </Route>
 
                 <Route path="/category/create" exact>
                     {isLoggedIn ? <CategoryForm /> : <Redirect to="login" />}
+                </Route>
+
+                <Route path="/Categories/:id/edit" exact>
+                    {isLoggedIn ? <CategoryUpdateForm /> : <Redirect to="/login" />}
                 </Route>
 
                 <Route path="/deleteCategory/:id">
@@ -50,6 +61,10 @@ export default function ApplicationViews({ isLoggedIn }) {
 
                 <Route path="/socialPlatform/create" exact>
                     {isLoggedIn ? <SocialPlatformForm /> : <Redirect to="login" />}
+                </Route>
+
+                <Route path="/socialPlatform/:id/edit" exact>
+                    {isLoggedIn ? <SocialPlatformUpdateForm /> : <Redirect to="/login" />}
                 </Route>
 
                 <Route path="/deleteSocialPlatform/:id">
