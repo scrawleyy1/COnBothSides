@@ -6,7 +6,7 @@ import { addPost } from "../../modules/postManager";
 
 export const PostForm = () => {
 
-    //useState will hold the post title, decription, url, and 
+    //useState will hold the post title, decription, url, ...
     const [post, setPost] = useState({
         title: "",
         description: "",

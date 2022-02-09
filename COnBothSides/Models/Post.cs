@@ -15,12 +15,11 @@ namespace COnBothSides.Models
         public bool isFavorite { get; set; }
         public DateTime CompleteBy { get; set; }
         public DateTime CreateDateTime { get; set; }
-        public UserProfile UserProfile { get; set;}
+        public UserProfile UserProfile { get; set; }
         public Category Category { get; set; }
         public int UserProfileId { get; set; }
         public int CategoryId { get; set; }
-        public PlatformPost PlatformPost { get; set; }
-        public SocialPlatform SocialPlatform { get; set; }
+        public List<SocialPlatform> Platforms{ get; set; }
 
        
     }
