@@ -3,6 +3,8 @@ import { useHistory } from "react-router";
 import { getAllCategories } from "../../modules/categoryManager";
 import { getAllSocialPlatforms } from "../../modules/socialPlatformManager";
 import { addPost } from "../../modules/postManager";
+import { Button } from "reactstrap";
+import "./Post.css"
 
 export const PostForm = () => {
 
@@ -57,7 +59,7 @@ export const PostForm = () => {
 
     //return gives us the concert form and allows user to add a concert
     return (
-        <form>
+        <form className="cardform">
             <h2>New Post</h2>
             <fieldset>
                 <div>
@@ -102,8 +104,12 @@ export const PostForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                <div>
-                    <button onClick={handleClickSavePost}>Save Post</button>
+                <div className="submit-wrapper">
+                    <Button onClick={handleClickSavePost}>Save Post</Button>
+                    <Button
+                        onClick={() => history.push("/")} >
+                        Cancel
+                    </Button>
                 </div>
             </fieldset>
         </form>

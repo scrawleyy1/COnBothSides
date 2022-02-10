@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { deleteSocialPlatform } from "../../modules/socialPlatformManager";
+import { Button } from "reactstrap";
 
 export const DeleteSocialPlatform = () => {
     const [socialPlatform, setSocialPlatform] = useState({
@@ -19,11 +20,12 @@ export const DeleteSocialPlatform = () => {
     };
 
     return (
-        <form>
+        <form className="cardform">
             <h2> Delete Social Platform:</h2>
             <p>Are you sure you want to delete this social platform?</p>
-            <button onClick={handleConfirmDeleteSocialPlatform}>Delete</button>
-            <button onClick={() => history.push("/socialPlatform")}>Cancel</button>
+            <div className="submit-wrapper">
+                <Button onClick={handleConfirmDeleteSocialPlatform}>Delete</Button>
+                <Button onClick={() => history.push("/socialPlatform")}>Cancel</Button></div>
         </form>
     );
 };
