@@ -93,3 +93,17 @@ export const updateSocialPlatform = (socialPlatform) => {
         }).then(getAllSocialPlatforms());
     })
 }
+
+export const addSocialPlatformToPost = (postId, socialPlatformId) => {
+    // return getToken().then(token => {
+    //     return fetch(baseUrl, {
+    //         method: "POST",
+    //         headers: {
+    //             Authorization: `Bearer ${token}`,
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(newSocialPlatform)
+    //     })
+    // })
+    console.log(postId, socialPlatformId)
+}

@@ -35,6 +35,7 @@ namespace COnBothSides
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddTransient<ISocialPlatformRepository, SocialPlatformRepository>();
+            services.AddTransient<IPlatformPostRepository, PlatformPostRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

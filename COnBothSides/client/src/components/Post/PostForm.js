@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { getAllCategories } from "../../modules/categoryManager";
 import { getAllSocialPlatforms } from "../../modules/socialPlatformManager";
-import { addPost } from "../../modules/postManager";
+import { addPost, addPlatformToPost } from "../../modules/postManager";
 import { Button } from "reactstrap";
 import "./Post.css"
 
@@ -15,9 +15,10 @@ export const PostForm = () => {
         url: "",
         completeBy: "",
         categoryId: 0,
-        socialPlatformId: 0,
         complete: false
     });
+
+    const [chosenPlatformIds, setchosenPlatformIds] = useState([])
 
     const [categories, setCategories] = useState([])
 
@@ -27,11 +28,11 @@ export const PostForm = () => {
         })
     }, [])
 
-    const [socialPlatform, setSocialPlatform] = useState([])
+    const [socialPlatforms, setSocialPlatforms] = useState([])
 
     useEffect(() => {
         getAllSocialPlatforms().then(res => {
-            setSocialPlatform(res)
+            setSocialPlatforms(res)
         })
     }, [])
 
@@ -42,7 +43,6 @@ export const PostForm = () => {
     const handleControlledInputChange = (event) => {
         const newPost = { ...post };
         let selectedVal = event.target.value;
-
         newPost[event.target.id] = selectedVal;
         // update state
         setPost(newPost);
@@ -54,7 +54,22 @@ export const PostForm = () => {
         event.preventDefault()
         const postCopy = { ...post } //prevents the browser from submitting the form
         addPost(postCopy)
-            .then(() => history.push("/"))
+            .then((post) => {
+                const promises = []
+                for (let id of chosenPlatformIds) {
+                    debugger
+                    promises.push(addPlatformToPost(post.id, id))
+                }
+                Promise.all(promises).then(history.push("/"));
+            })
+    }
+
+    const handleMultiSelect = (event) => {
+        const options = []
+        for (let i = 0; i < event.target.selectedOptions.length; i++) {
+            options.push(parseInt(event.target.selectedOptions[i].value))
+        }
+        setchosenPlatformIds(options)
     }
 
     //return gives us the concert form and allows user to add a concert
@@ -97,9 +112,9 @@ export const PostForm = () => {
             <fieldset>
                 <div>
                     <label htmlFor="socialPlatform">Social Media Platform:</label>
-                    <select id="socialPlatformId" onChange={handleControlledInputChange} required autoFocus placeholder="Social Media Platform" value={socialPlatform.name} >
+                    <select multiple id="socialPlatformId" onChange={handleMultiSelect} required autoFocus placeholder="Social Media Platform" >
                         <option value="null">Select Social Media Platform</option>
-                        {socialPlatform.map(sp => (<option key={sp.id} value={sp.id}>{sp.name}</option>))}
+                        {socialPlatforms.map(sp => (<option key={sp.id} value={sp.id}>{sp.name}</option>))}
                     </select>
                 </div>
             </fieldset>

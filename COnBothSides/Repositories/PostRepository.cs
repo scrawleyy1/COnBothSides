@@ -13,7 +13,7 @@ namespace COnBothSides.Repositories
     {
         public PostRepository(IConfiguration configuration) : base(configuration) { }
 
-        public List<Post> GetAll()
+        public List<Post> GetAll(int id)
         {
             using (var conn = Connection)
             {
@@ -36,7 +36,10 @@ namespace COnBothSides.Repositories
                         ON up.UserTypeId = ut.Id
                         WHERE p.CreateDateTime < GETDATE()
                         AND p.Complete = 'false'
+                        AND p.userProfileId = @id
                         ORDER BY CompleteBy asc";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -93,7 +96,7 @@ namespace COnBothSides.Repositories
                     SELECT p.Id, p.Title, p.Description, p.Url,
                     p.UserProfileId, p.Complete, p.CompleteBy,
                     p.CategoryId, p.isFavorite, p.CreateDateTime,
-                    c.Name as CategoryName, sp.[Name] AS SocialPlatformName,
+                    c.Name as CategoryName, sp.[Name] AS SocialPlatformName, sp.Id AS SocialPlatformId,
                     up.Id as UserId, up.Email, up.FirstName, up.LastName,
                     up.UserName, up.CreateDateTime AS UserCreateDateTime, up.UserTypeId, ut.[Name]
                         FROM Post p
@@ -121,11 +124,15 @@ namespace COnBothSides.Repositories
                             {
                                 post = NewPostFromReader(reader);
                             }
-                            post.Platforms.Add(new SocialPlatform()
+                            if (DbUtils.IsNotDbNull(reader, "SocialPlatformId"))
                             {
-                                Name = DbUtils.GetString(reader, "SocialPlatformName")
+                                post.Platforms.Add(new SocialPlatform()
+                                {
+                                    Name = DbUtils.GetString(reader, "SocialPlatformName"),
+                                    Id = DbUtils.GetInt(reader, "SocialPlatformId")
 
-                            });
+                                });
+                            }
                         }
                         return post;
                     }
@@ -157,7 +164,7 @@ namespace COnBothSides.Repositories
                     cmd.Parameters.AddWithValue("@CategoryId", post.CategoryId);
                     cmd.Parameters.AddWithValue("@UserProfileId", post.UserProfileId);
 
-                    cmd.ExecuteNonQuery();
+                    post.Id = (int)cmd.ExecuteScalar();
                 }
             }
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { updatePost, getPostById } from "../../modules/postManager";
+import { updatePost, getPostById, addPlatformToPost, deletePlatformsForPost } from "../../modules/postManager";
 import { getAllSocialPlatforms } from "../../modules/socialPlatformManager";
 import { getAllCategories } from "../../modules/categoryManager";
 import { Button } from "reactstrap";
@@ -14,7 +14,6 @@ export const PostUpdateForm = () => {
         url: "",
         completeBy: "",
         categoryId: 0,
-        socialPlatformId: 0,
         complete: false
     });
 
@@ -26,19 +25,24 @@ export const PostUpdateForm = () => {
         })
     }, [])
 
-    const [socialPlatform, setSocialPlatform] = useState([])
+    const [socialPlatforms, setSocialPlatforms] = useState([])
 
     useEffect(() => {
         getAllSocialPlatforms().then(res => {
-            setSocialPlatform(res)
+            setSocialPlatforms(res)
         })
     }, [])
+
+    const [chosenPlatformIds, setchosenPlatformIds] = useState([])
 
     const { id } = useParams()
     const history = useHistory();
 
     const getPost = () => {
-        getPostById(id).then(res => setPost(res));
+        getPostById(id).then(res => {
+            setPost(res)
+            setchosenPlatformIds(res.platforms.map(p => p.id))
+        });
     }
 
     useEffect(() => {
@@ -57,8 +61,27 @@ export const PostUpdateForm = () => {
 
     const handleClickSavePost = (event) => {
         event.preventDefault(); //Prevents the browser from submitting the form
-        updatePost(post).then(() => history.push("/"))
-    };
+        updatePost(post)
+            .then((updatedPost) => {
+                deletePlatformsForPost(post.id)
+                    .then(() => {
+                        const promises = []
+                        for (let id of chosenPlatformIds) {
+                            debugger
+                            promises.push(addPlatformToPost(post.id, id))
+                        }
+                        Promise.all(promises).then(history.push("/"));
+                    })
+            })
+    }
+
+    const handleMultiSelect = (event) => {
+        const options = []
+        for (let i = 0; i < event.target.selectedOptions.length; i++) {
+            options.push(parseInt(event.target.selectedOptions[i].value))
+        }
+        setchosenPlatformIds(options)
+    }
 
 
 
@@ -122,9 +145,9 @@ export const PostUpdateForm = () => {
                 <fieldset>
                     <div>
                         <label htmlFor="socialPlatform">Social Media Platform:</label>
-                        <select id="socialPlatformId" onChange={handleControlledInputChange} required autoFocus placeholder="Social Media Platform" value={socialPlatform.name} >
+                        <select value={chosenPlatformIds} multiple id="socialPlatformId" onChange={handleMultiSelect} required autoFocus placeholder="Social Media Platform" >
                             <option value="null">Select Social Media Platform</option>
-                            {socialPlatform.map(sp => (<option key={sp.id} value={sp.id}>{sp.name}</option>))}
+                            {socialPlatforms.map(sp => (<option key={sp.id} value={sp.id}>{sp.name}</option>))}
                         </select>
                     </div>
                 </fieldset>

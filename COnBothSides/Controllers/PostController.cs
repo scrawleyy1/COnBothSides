@@ -27,7 +27,8 @@ namespace COnBothSides.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_postRepository.GetAll());
+            var currentUserProfile = GetCurrentUserProfile();
+            return Ok(_postRepository.GetAll(currentUserProfile.Id));
         }
 
         [HttpGet("{id}")]
@@ -42,7 +43,7 @@ namespace COnBothSides.Controllers
           var currentUserProfile = GetCurrentUserProfile();
             post.UserProfileId = 1;
             _postRepository.Add(post);
-            return NoContent();
+            return CreatedAtAction("GetPostById", new {id = post.Id}, post);
         }
 
         [HttpPut("{id}")]

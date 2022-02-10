@@ -1,4 +1,5 @@
 import { getToken } from "./authManager";
+import { addSocialPlatformToPost } from "./socialPlatformManager";
 
 const baseUrl = "/api/post";
 
@@ -59,7 +60,29 @@ export const addPost = (newPost) => {
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(newPost)
-        });
+        }).then(res => res.json())
+    })
+}
+
+export const deletePlatformsForPost = (postId) => {
+    return getToken().then(token => {
+        return fetch(`/api/platformPost/${postId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    })
+}
+
+export const addPlatformToPost = (postId, socialPlatformId) => {
+    return getToken().then(token => {
+        return fetch(`/api/platformPost/${socialPlatformId}?postId=${postId}`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
     })
 }
 

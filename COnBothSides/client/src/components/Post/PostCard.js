@@ -7,13 +7,7 @@ import "./Post.css"
 
 export const PostCard = ({ post }) => {
 
-    const handleCheckboxComplete = () => {
-        postComplete(post).then(reload)
-    }
 
-    const history = useHistory;
-
-    const reload = () => history.pushState("/")
 
     return (
         <Card className="card">
@@ -24,10 +18,7 @@ export const PostCard = ({ post }) => {
             </CardBody>
             <CardBody>
                 <strong>Category: {post.category.name}</strong><br></br>
-                <strong>Complete By: {post.createDateTime}</strong><br></br>
-                {/* <div><label htmlFor="complete">complete?
-                    <input onChange={handleCheckboxComplete} type="checkbox" name="complete" id="complete"></input>
-                </label></div> */}
+                <strong>Complete By: {post.createDateTime}</strong>
             </CardBody>
 
         </Card>)

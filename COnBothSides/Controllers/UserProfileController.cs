@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using COnBothSides.Models;
 using COnBothSides.Repositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace COnBothSides.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
@@ -45,6 +47,18 @@ namespace COnBothSides.Controllers
         public IActionResult GetUserProfileById(int id)
         {
             return Ok(_userProfileRepository.GetUserProfileById(id));
+        }
+
+        [HttpPost]
+        public IActionResult Post(UserProfile userProfile)
+        {
+            userProfile.CreateDateTime = DateTime.Now;
+            userProfile.UserTypeId = 1;
+            _userProfileRepository.Add(userProfile);
+            return CreatedAtAction(
+                nameof(GetUserProfile),
+                new { firebaseId = userProfile.FirebaseId },
+                userProfile);
         }
 
     }

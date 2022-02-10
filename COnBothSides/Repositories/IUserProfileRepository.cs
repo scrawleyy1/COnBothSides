@@ -9,5 +9,6 @@ namespace COnBothSides.Repositories
         List<UserProfile> GetAll();
         UserProfile GetByFirebaseId(string firebaseId);
         UserProfile GetUserProfileById(int id);
+
     }
 }

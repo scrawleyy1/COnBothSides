@@ -14,6 +14,7 @@ const _doesUserExist = (firebaseId) => {
 };
 
 const _saveUser = (userProfile) => {
+    debugger
     return getToken().then((token) =>
         fetch(_apiUrl, {
             method: "POST",
@@ -57,7 +58,7 @@ export const register = (userProfile, password) => {
     return firebase.auth().createUserWithEmailAndPassword(userProfile.email, password)
         .then((createResponse) => _saveUser({
             ...userProfile,
-            firebaseUserId: createResponse.user.uid
+            firebaseId: createResponse.user.uid
         }));
 };
 
