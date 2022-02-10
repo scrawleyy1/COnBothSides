@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { updateSocialPlatform, getSocialPlatformsById } from "../../modules/socialPlatformManager";
+import { Button } from "reactstrap";
+import "../Post/Post.css"
 
 
 export const SocialPlatformUpdateForm = () => {
@@ -33,7 +35,7 @@ export const SocialPlatformUpdateForm = () => {
 
     return (
         <>
-            <form>
+            <form className="cardform">
                 <div>
                     <h3>Edit Social Media Platform</h3>
                     <label htmlFor="name">Name: </label>
@@ -46,11 +48,10 @@ export const SocialPlatformUpdateForm = () => {
                         placeholder="Social Media Platform Name"
                         value={socialPlatform.name} />
                 </div>
-                <div>
-                    <button
-                        onClick={handleClickSaveSocialPlatform} >Save</button>
-                </div>
-                <button onClick={() => history.push("/socialPlatform")}>Cancel</button>
+                <div className="submit-wrapper">
+                    <Button
+                        onClick={handleClickSaveSocialPlatform} >Save</Button>
+                    <Button onClick={() => history.push("/socialPlatform")}>Cancel</Button></div>
             </form>
         </>
     );

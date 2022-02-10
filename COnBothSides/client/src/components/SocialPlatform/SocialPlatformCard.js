@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 export const SocialPlatformCard = ({ socialPlatform }) => {
@@ -13,9 +13,11 @@ export const SocialPlatformCard = ({ socialPlatform }) => {
     return (
         <Card>
             <CardBody>
-                <p>{socialPlatform.name}</p>
-                <button type="button" onClick={() => history.push(`/socialPlatform/${socialPlatform.id}/edit`)}>Edit</button>
-                <button type="button" onClick={() => handleDeleteSocialPlatform(socialPlatform.id)}>Delete</button>
+                <strong>{socialPlatform.name}</strong>
+                <div>
+                    <Button type="button" onClick={() => history.push(`/socialPlatform/${socialPlatform.id}/edit`)}>Edit</Button>
+                    <Button type="button" onClick={() => handleDeleteSocialPlatform(socialPlatform.id)}>Delete</Button>
+                </div>
             </CardBody>
         </Card>
     )

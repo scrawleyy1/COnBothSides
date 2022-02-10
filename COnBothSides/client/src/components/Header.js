@@ -17,7 +17,7 @@ export default function Header({ isLoggedIn }) {
 
     return (
         <div>
-            <Navbar color="light" light expand="md">
+            <Navbar color="dark" dark expand="md">
                 <NavbarBrand tag={RRNavLink} to="/">C on Both Sides</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 
 export const CategoryCard = ({ category }) => {
@@ -13,9 +13,11 @@ export const CategoryCard = ({ category }) => {
     return (
         <Card>
             <CardBody>
-                <p>{category.name}</p>
-                <button type="button" onClick={() => history.push(`/Categories/${category.id}/edit`)}>Edit</button>
-                <button type="button" onClick={() => handleDeleteCategory(category.id)}>Delete</button>
+                <strong>{category.name}</strong>
+                <div>
+                    <Button type="button" onClick={() => history.push(`/Categories/${category.id}/edit`)}>Edit</Button>
+                    <Button type="button" onClick={() => handleDeleteCategory(category.id)}>Delete</Button>
+                </div>
             </CardBody>
         </Card>
     )

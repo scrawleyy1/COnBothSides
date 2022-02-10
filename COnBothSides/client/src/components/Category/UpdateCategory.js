@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { updateCategory, getCategoryById } from "../../modules/categoryManager";
+import { Button } from "reactstrap";
+import "../Post/Post.css"
 
 
 export const CategoryUpdateForm = () => {
@@ -33,7 +35,7 @@ export const CategoryUpdateForm = () => {
 
     return (
         <>
-            <form>
+            <form className="cardform">
                 <div>
                     <h3>Edit Category</h3>
                     <label htmlFor="name">Name: </label>
@@ -46,11 +48,10 @@ export const CategoryUpdateForm = () => {
                         placeholder="Category Name"
                         value={category.name} />
                 </div>
-                <div>
-                    <button
-                        onClick={handleClickSaveCategory} >Save</button>
-                </div>
-                <button onClick={() => history.push("/Categories")}>Cancel</button>
+                <div className="submit-wrapper">
+                    <Button
+                        onClick={handleClickSaveCategory} >Save</Button>
+                    <Button onClick={() => history.push("/Categories")}>Cancel</Button></div>
             </form>
         </>
     );

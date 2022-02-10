@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { deleteCategory } from "../../modules/categoryManager";
+import { Button } from "reactstrap";
 
 export const DeleteCategory = () => {
     const [category, setCategory] = useState({
@@ -19,11 +20,12 @@ export const DeleteCategory = () => {
     };
 
     return (
-        <form>
+        <form className="cardform">
             <h2> Delete Category:</h2>
             <p>Are you sure you want to delete this category?</p>
-            <button onClick={handleConfirmDeleteCategory}>Delete</button>
-            <button onClick={() => history.push("/Categories")}>Cancel</button>
+            <div className="submit-wrapper">
+                <Button onClick={handleConfirmDeleteCategory}>Delete</Button>
+                <Button onClick={() => history.push("/Categories")}>Cancel</Button></div>
         </form>
     );
 };

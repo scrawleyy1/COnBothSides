@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, CardBody } from "reactstrap";
 import { postComplete, getAllPosts } from "../../modules/postManager";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import "./Post.css"
 
 export const PostCard = ({ post }) => {
 
@@ -15,18 +16,18 @@ export const PostCard = ({ post }) => {
     const reload = () => history.pushState("/")
 
     return (
-        <Card>
+        <Card className="card">
             <CardBody>
                 <Link to={`/post/${post.id}`}>
                     <h3>{post.title}</h3>
                 </Link>
             </CardBody>
             <CardBody>
-                <p>Category: {post.category.name}</p>
-                <p>Complete By: {post.createDateTime}</p>
-                <div><label htmlFor="complete">complete?
+                <strong>Category: {post.category.name}</strong><br></br>
+                <strong>Complete By: {post.createDateTime}</strong><br></br>
+                {/* <div><label htmlFor="complete">complete?
                     <input onChange={handleCheckboxComplete} type="checkbox" name="complete" id="complete"></input>
-                </label></div>
+                </label></div> */}
             </CardBody>
 
         </Card>)

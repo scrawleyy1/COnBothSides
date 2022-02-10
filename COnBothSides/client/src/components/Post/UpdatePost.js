@@ -3,6 +3,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { updatePost, getPostById } from "../../modules/postManager";
 import { getAllSocialPlatforms } from "../../modules/socialPlatformManager";
 import { getAllCategories } from "../../modules/categoryManager";
+import { Button } from "reactstrap";
+import "./Post.css"
 
 
 export const PostUpdateForm = () => {
@@ -62,7 +64,7 @@ export const PostUpdateForm = () => {
 
     return (
         <>
-            <form>
+            <form className="cardeditform">
                 <div>
                     <h3>Edit Post</h3>
                     <label htmlFor="title">Title: </label>
@@ -126,13 +128,15 @@ export const PostUpdateForm = () => {
                         </select>
                     </div>
                 </fieldset>
-                <div>
-                    <button
-                        onClick={handleClickSavePost} >Save Post</button>
-                    <button
+                <div className="submit-wrapper">
+                    <Button
+                        onClick={handleClickSavePost} >Save Post</Button>
+                    <Button
                         onClick={() => history.push("/")} >
                         Cancel
-                    </button>
+                    </Button>
+
+
                 </div>
             </form>
         </>

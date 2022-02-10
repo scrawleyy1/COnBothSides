@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { addSocialPlatform } from "../../modules/socialPlatformManager";
+import { Button } from "reactstrap";
+import "../Post/Post.css"
 
 export const SocialPlatformForm = () => {
     const [socialPlatform, setSocialPlatform] = useState({
@@ -26,10 +28,11 @@ export const SocialPlatformForm = () => {
 
     return (
         <>
-            <h3>Add Social Platform</h3>
-            <div>
+            <h3 className="cardform h2">Add Social Platform</h3>
+            <div className="cardform">
                 <input id="name" type="text" onChange={handleControlledInputChange} required autoFocus placeholder="Add New Social Platform" value={socialPlatform.name} />
-                <button onClick={handleClickSaveSocialPlatform}>Save Social Platform</button>
+                <div className="submit-wrapper"><Button onClick={handleClickSaveSocialPlatform}>Save Social Platform</Button>
+                    <Button onClick={() => history.push("/socialPlatform")}>Cancel</Button></div>
             </div>
         </>
     )

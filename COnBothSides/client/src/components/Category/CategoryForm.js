@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { addCategory } from "../../modules/categoryManager";
+import { Button } from "reactstrap";
+import "../Post/Post.css"
 
 export const CategoryForm = () => {
     const [category, setCategory] = useState({
@@ -26,10 +28,11 @@ export const CategoryForm = () => {
 
     return (
         <>
-            <h3>Add New Category</h3>
-            <div>
+            <h3 className="cardform h2">Add New Category</h3>
+            <div className="cardform">
                 <input id="name" type="text" onChange={handleControlledInputChange} required autoFocus placeholder="Add New Category" value={category.name} />
-                <button onClick={handleClickSaveCategory}>Save Category</button>
+                <Button onClick={handleClickSaveCategory}>Save Category</Button>
+                <Button onClick={() => history.push("/Categories")}>Cancel</Button>
             </div>
         </>
     )
