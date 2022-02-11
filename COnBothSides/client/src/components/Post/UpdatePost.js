@@ -67,7 +67,6 @@ export const PostUpdateForm = () => {
                     .then(() => {
                         const promises = []
                         for (let id of chosenPlatformIds) {
-                            debugger
                             promises.push(addPlatformToPost(post.id, id))
                         }
                         Promise.all(promises).then(history.push("/"));
