@@ -18,7 +18,7 @@ export const PostCard = ({ post }) => {
             </CardBody>
             <CardBody>
                 <strong>Category: {post.category.name}</strong><br></br>
-                <strong>Complete By: {post.createDateTime}</strong>
+                <strong>Complete By: {post.completeBy}</strong>
             </CardBody>
 
         </Card>)
